@@ -3057,6 +3057,8 @@ LIBMDBX_API int mdbx_env_get_fd(const MDBX_env *env, mdbx_filehandle_t *fd);
  * it is reasonable to know some details in order to make optimal decisions
  * when choosing parameters.
  *
+ * \see mdbx_env_info_ex()
+ *
  * Both \ref mdbx_env_set_geometry() and legacy \ref mdbx_env_set_mapsize() are
  * inapplicable to read-only opened environment.
  *
@@ -3166,7 +3168,7 @@ LIBMDBX_API int mdbx_env_get_fd(const MDBX_env *env, mdbx_filehandle_t *fd);
  * \note Actual values may be different than your have specified because of
  * rounding to specified database page size, the system page size and/or the
  * size of the system virtual memory management unit. You can get actual values
- * by \ref mdbx_env_sync_ex() or see by using the tool `mdbx_chk` with the `-v`
+ * by \ref mdbx_env_info_ex() or see by using the tool `mdbx_chk` with the `-v`
  * option.
  *
  * Legacy \ref mdbx_env_set_mapsize() correspond to calling
@@ -4029,7 +4031,7 @@ LIBMDBX_API int mdbx_txn_renew(MDBX_txn *txn);
 /** \brief The fours integers markers (aka "canary") associated with the
  * environment.
  * \ingroup c_crud
- * \see mdbx_canary_set()
+ * \see mdbx_canary_put()
  * \see mdbx_canary_get()
  *
  * The `x`, `y` and `z` values could be set by \ref mdbx_canary_put(), while the
@@ -4067,10 +4069,10 @@ LIBMDBX_API int mdbx_canary_put(MDBX_txn *txn, const MDBX_canary *canary);
 /** \brief Returns fours integers markers (aka "canary") associated with the
  * environment.
  * \ingroup c_crud
- * \see mdbx_canary_set()
+ * \see mdbx_canary_put()
  *
  * \param [in] txn     A transaction handle returned by \ref mdbx_txn_begin().
- * \param [in] canary  The address of an MDBX_canary structure where the
+ * \param [in] canary  The address of an \ref MDBX_canary structure where the
  *                     information will be copied.
  *
  * \returns A non-zero error value on failure and 0 on success. */
